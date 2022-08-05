@@ -29,16 +29,19 @@ header {
     height: clamp(120px, 100vw, 550px);
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    padding: 4px;
+    gap: 4px;
 }
 
 .square {
-    border: 1px solid lawngreen;
+    border: 1px solid rgb(124, 236, 11);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
+    border-radius: 6px;;
 }
-/* 
-.square:hover{
+
+/* .square:hover{
     background-color: red;
 } */
