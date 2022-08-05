@@ -12,6 +12,7 @@ const gameBoardModule = (() => {
     const gameBoard = document.querySelector(".game-board");
     const squareArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const fillSquares = () => {
+        gameBoard.textContent = "";
         for (let i = 0; i < 9; i++) {
             const square = document.createElement("div");
             square.classList.add("square");
@@ -28,7 +29,7 @@ const gameBoardModule = (() => {
     // square2.classList.add("square");
     // gameBoard.appendChild(square2);
 
-    const getSquares = ()=>document.querySelectorAll(".square");
+    const getSquares = () => document.querySelectorAll(".square");
     // const squares = 
     // console.log(squares);
 
@@ -58,13 +59,62 @@ const gameBoardModule = (() => {
             e.target.dataset.status = "occupied";
             // count++;
         }
+        checkWinner();
     }
 
-    const checkWinner = ()=>{
+    const checkWinner = () => {
         let squares = getSquares();
         console.log(squares);
+        console.log(squares[0].dataset.marker)
+        console.log(squares[1].dataset.marker)
+        console.log(squares[2].dataset.marker)
+
+        let i = 0;
+        while (i < 9) {
+            if (squares[i].dataset.marker === squares[i+1].dataset.marker && squares[i+1].dataset.marker === squares[i+2].dataset.marker && squares[i].dataset.marker !== undefined) {
+                alert("You won");
+                fillSquares();
+                return;
+            }
+            i = i + 3;
+        }
+
+        let j = 0;
+        while (j < 3) {
+            if (squares[j].dataset.marker === squares[j + 3].dataset.marker && squares[j + 3].dataset.marker === squares[j + 6].dataset.marker && squares[j].dataset.marker !== undefined) {
+                alert("You won");
+                fillSquares();
+                return;
+            }
+            j++;
+        }
+
+        let k = 0;
+        while (k < 3) {
+            if (k === 0) {
+                if (squares[k].dataset.marker === squares[k + 4].dataset.marker && squares[k + 4].dataset.marker === squares[k + 8].dataset.marker && squares[k].dataset.marker !== undefined) {
+                    alert("You won");
+                    fillSquares();
+                    return;
+                }
+                
+            }
+
+            else {
+                if (squares[k].dataset.marker === squares[k + 2].dataset.marker && squares[k + 2].dataset.marker === squares[k + 4].dataset.marker && squares[k].dataset.marker !== undefined) {
+                    alert("You won");
+                    fillSquares();
+                    return;
+                }
+            }
+            k+=2;
+        }
     }
 
+
+    // if (squares[0].dataset.marker === squares[1].dataset.marker && squares[1].dataset.marker === squares[2].dataset.marker && squares[0].dataset.marker !== undefined) {
+    //     alert("You won");
+    // }
     // let {player} = 
     // const list = (player) => {
     //     const squares = document.querySelectorAll(".square");
