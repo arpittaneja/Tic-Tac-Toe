@@ -19,8 +19,10 @@ header {
     border: 0.2rem solid pink;
     padding: 4rem 0;
     display: flex;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+    gap: 50px;
 }
 
 .game-board {
@@ -34,7 +36,7 @@ header {
 }
 
 .square {
-    border: 1px solid rgb(124, 236, 11);
+    border: 1px solid rgb(170, 251, 89);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,6 +44,12 @@ header {
     border-radius: 6px;;
 }
 
-/* .square:hover{
-    background-color: red;
-} */
+.btn{
+    width: 180px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.square:hover{
+    background-color: rgb(235, 255, 247);
+}
