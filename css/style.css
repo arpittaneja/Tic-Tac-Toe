@@ -4,9 +4,16 @@
     box-sizing: border-box;
 }
 
-html {
+body, html {
     height: 100%;
-    border: 0.1rem solid rgb(178, 178, 226);
+}
+
+body{
+    border: 3px solid rgb(29, 29, 138);
+}
+
+html{
+    border: 3px solid rgb(178, 178, 226);
 }
 
 header {
@@ -16,13 +23,13 @@ header {
 }
 
 .container {
-    border: 0.2rem solid pink;
-    padding: 4rem 0;
+    border: 4px solid pink;
+    /* padding: 4rem 0; */
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 40px;
 }
 
 .game-board {
@@ -52,4 +59,9 @@ header {
 
 .square:hover{
     background-color: rgb(235, 255, 247);
+}
+
+.player-turn{
+    margin-top: 40px;
+    border: 2px solid blueviolet;
 }
