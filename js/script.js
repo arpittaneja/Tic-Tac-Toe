@@ -33,9 +33,9 @@ const gameBoardModule = (() => {
     //         square.addEventListener("click", click);
     //     }
     // };
-    
+
     let squaresClicked = 0;
-    
+
     function onClick(e) {
         if (e.target.dataset.status !== "occupied") {
             e.target.textContent = playerArray
@@ -45,14 +45,14 @@ const gameBoardModule = (() => {
             e.target.dataset.playerName = playerArray
             [playerPointer].getName();
             playerPointer = (playerPointer === 0) ? 1 : 0;
-            playerTurn.textContent = "Player "+ playerArray
+            displayController.playerTurn.textContent = "Player " + playerArray
             [playerPointer].getName() + ", Your turn!";
             e.target.dataset.status = "occupied";
             squaresClicked++;
         }
         findWinPattern();
     }
-    
+
 
     const findWinPattern = () => {
         let squares = getSquares();
@@ -142,12 +142,22 @@ const playerArray = [playerOne, playerTwo];
 gameBoardModule.newGame();
 // gameBoardModule.fun();
 
-const restartButton = document.querySelector(".restart");
-restartButton.addEventListener("click", restartGame);
-const playerTurn = document.querySelector(".player-turn");
 
-function restartGame(e) {
-    gameBoardModule.newGame();
-}
+
 // console.log(playerOne.getMarker("playerOneName"));
 // console.log(playerTwo.getMarker("playerTwoName"));
+
+
+const displayController = (() => {
+    const restartButton = document.querySelector(".restart");
+    restartButton.addEventListener("click", restartGame);
+    const playerTurn = document.querySelector(".player-turn");
+    
+    function restartGame(e) {
+        gameBoardModule.newGame();
+    }
+
+    return {
+        playerTurn,
+    }
+})();

@@ -63,5 +63,6 @@ header {
 
 .player-turn{
     margin-top: 40px;
-    border: 2px solid blueviolet;
+    border: 2px solid rgb(220, 182, 255);
+    padding: 10px;
 }
