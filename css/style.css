@@ -51,10 +51,6 @@ header {
     font-size: 4rem;
 }
 
-.win-squares {
-    background-color: rgb(233, 255, 233);
-}
-
 button {
     width: 180px;
     height: 45px;
@@ -73,7 +69,7 @@ button:active {
     transform: scale(0.9);
 }
 
-button:hover{
+button:hover {
     background-color: rgb(178, 246, 178);
 
 }
@@ -130,6 +126,7 @@ span>span:hover {
     cursor: pointer;
 }
 
+.win-squares,
 .win-squares:hover {
-    background-color: rgb(233, 255, 233);
+    background-color: rgb(178, 255, 178);
 }
