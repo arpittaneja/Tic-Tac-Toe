@@ -70,8 +70,7 @@ button:active {
 }
 
 button:hover {
-    background-color: rgb(178, 246, 178);
-
+    background-color: rgb(178, 255, 178);
 }
 
 .square:hover {
