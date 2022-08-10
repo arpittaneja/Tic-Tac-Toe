@@ -1,7 +1,6 @@
-const Player = (name, turn) => {
+const Player = (name, marker) => {
     const getName = () => name;
     const getTurn = () => turn;
-    const marker = (turn === 0) ? "X" : "O";
     const getMarker = () => marker;
 
     return { getName, getTurn, getMarker };
@@ -19,7 +18,7 @@ const gameBoardModule = (() => {
             square.dataset.number = squareArray[i];
         }
 
-        squares = getSquares();
+        let squares = getSquares();
         for (let square of squares) {
             square.addEventListener("click", onClick);
         }
@@ -27,26 +26,20 @@ const gameBoardModule = (() => {
 
     const getSquares = () => document.querySelectorAll(".square");
 
-    // const addClick = () => {
-    //     const squares = document.querySelectorAll(".square");
-    //     for (let square of squares) {
-    //         square.addEventListener("click", click);
-    //     }
-    // };
-
     let squaresClicked = 0;
 
-    function onClick(e) {
+    const onClick = (e) => {
         if (e.target.dataset.status !== "occupied") {
-            e.target.textContent = playerArray
-            [playerPointer].getMarker();
-            e.target.dataset.marker = playerArray
-            [playerPointer].getMarker();
-            e.target.dataset.playerName = playerArray
-            [playerPointer].getName();
-            playerPointer = (playerPointer === 0) ? 1 : 0;
-            displayController.playerTurn.textContent = "Player " + playerArray
-            [playerPointer].getName() + ", Your turn!";
+            e.target.textContent = displayController.playerArray
+            [displayController.playerPointer].getMarker();
+            e.target.dataset.marker = displayController.playerArray
+            [displayController.playerPointer].getMarker();
+            e.target.dataset.playerName = displayController.playerArray
+            [displayController.playerPointer].getName();
+
+            changePlayer(displayController.playerPointer);
+            displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
+
             e.target.dataset.status = "occupied";
             squaresClicked++;
         }
@@ -54,10 +47,11 @@ const gameBoardModule = (() => {
     }
 
 
-    const findWinPattern = () => {
-        let squares = getSquares();
-        console.log(squares);
+    const changePlayer = (playerPointer) => {
+        displayController.playerPointer = (playerPointer === 0) ? 1 : 0;
+    }
 
+    const findHorizontalWinPattern = (squares, playerArray) => {
         let i = 0;
         while (i < 9) {
             if (squares[i].dataset.marker === squares[i + 1].dataset.marker && squares[i + 1].dataset.marker === squares[i + 2].dataset.marker && squares[i].dataset.marker !== undefined) {
@@ -67,11 +61,13 @@ const gameBoardModule = (() => {
                     }
                 }
                 newGame();
-                return;
+                return true;
             }
             i = i + 3;
         }
+    }
 
+    const findVericalWinPattern = (squares, playerArray) => {
         let j = 0;
         while (j < 3) {
             if (squares[j].dataset.marker === squares[j + 3].dataset.marker && squares[j + 3].dataset.marker === squares[j + 6].dataset.marker && squares[j].dataset.marker !== undefined) {
@@ -81,11 +77,13 @@ const gameBoardModule = (() => {
                     }
                 };
                 newGame();
-                return;
+                return true;
             }
             j++;
         }
+    }
 
+    const findDiagonalWinPattern = (squares, playerArray) => {
         let k = 0;
         while (k < 3) {
             if (k === 0) {
@@ -97,24 +95,34 @@ const gameBoardModule = (() => {
                         }
                     }
                     newGame();
-                    return;
+                    return true;
                 }
             }
 
             else {
                 if (squares[k].dataset.marker === squares[k + 2].dataset.marker && squares[k + 2].dataset.marker === squares[k + 4].dataset.marker && squares[k].dataset.marker !== undefined) {
-                    for (let player of playerArray) {
+                    for (let player of displayController.playerArray) {
                         if (player.getMarker() === squares[k].dataset.marker) {
 
                             displayWinnerName(player.getName());
                         }
                     }
                     newGame();
-                    return;
+                    return true;
                 }
             }
             k += 2;
         }
+    }
+
+    const findWinPattern = () => {
+        let squares = getSquares();
+        // console.log(squares);
+        if (findHorizontalWinPattern(squares, displayController.playerArray) === true) return;
+
+        if (findVericalWinPattern(squares, displayController.playerArray) === true) return;
+
+        if (findDiagonalWinPattern(squares, displayController.playerArray) === true) return;
 
         if (squaresClicked === 9) {
             alert("gameDraw");
@@ -124,40 +132,36 @@ const gameBoardModule = (() => {
 
     const displayWinnerName = (name) => {
         alert(name + " won");
-        playerPointer = 0;
+        displayController.playerPointer = 0;
+        displayController.playerTurn.textContent = "Player " + displayController.playerArray
+        [displayController.playerPointer].getName() + ", Your turn!";
         squaresClicked = 0;
     }
 
-    return { newGame, findWinPattern };
+    return { newGame };
 })();
 
-
-// const playerOneName = prompt("Enter Player 1 name", "Player 1");
-// const playerTwoName = prompt("Enter Player 2 name", "Player 2");
-const playerOne = Player("One", 0);
-const playerTwo = Player("Two", 1);
-
-let playerPointer = 0;
-const playerArray = [playerOne, playerTwo];
-gameBoardModule.newGame();
-// gameBoardModule.fun();
-
-
-
-// console.log(playerOne.getMarker("playerOneName"));
-// console.log(playerTwo.getMarker("playerTwoName"));
-
-
 const displayController = (() => {
+    const playerOne = Player("One", "X");
+    const playerTwo = Player("Two", "O");
+
+    let playerPointer = 0;
+    const playerArray = [playerOne, playerTwo];
     const restartButton = document.querySelector(".restart");
     restartButton.addEventListener("click", restartGame);
     const playerTurn = document.querySelector(".player-turn");
-    
+
+    const updateTurnText = (playerTurn, playerArray, playerPointer) => {
+        playerTurn.textContent = "Player " + playerArray[playerPointer].getName() + ", Your turn!";
+    }
+
     function restartGame(e) {
         gameBoardModule.newGame();
     }
 
     return {
-        playerTurn,
+        playerTurn, playerPointer, playerArray, updateTurnText
     }
 })();
+
+gameBoardModule.newGame();

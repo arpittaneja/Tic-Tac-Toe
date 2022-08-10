@@ -9,11 +9,11 @@ body, html {
 }
 
 body{
-    border: 3px solid rgb(29, 29, 138);
+    /* border: 3px solid rgb(29, 29, 138); */
 }
 
 html{
-    border: 3px solid rgb(178, 178, 226);
+    /* border: 3px solid rgb(178, 178, 226); */
 }
 
 header {
@@ -24,12 +24,11 @@ header {
 
 .container {
     border: 4px solid pink;
-    /* padding: 4rem 0; */
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 20px;
 }
 
 .game-board {
@@ -65,4 +64,35 @@ header {
     margin-top: 40px;
     border: 2px solid rgb(220, 182, 255);
     padding: 10px;
+}
+
+footer {
+    position: fixed;
+    font-size: 1rem;
+    bottom: 0px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(220, 182, 255);
+    /* align-items: end; */
+}
+
+footer>span{
+    border: 2px solid rgb(220, 182, 255);
+    transition: all 2s;
+    opacity: 0;
+}
+
+footer:hover>span{
+opacity: 1;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited{
+    color: black;
 }
