@@ -11,6 +11,7 @@ const gameBoardModule = (() => {
     const squareArray = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const newGame = () => {
         gameBoard.textContent = "";
+        displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
         for (let i = 0; i < 9; i++) {
             const square = document.createElement("div");
             square.classList.add("square");
@@ -60,7 +61,6 @@ const gameBoardModule = (() => {
                         displayWinnerName(player.getName());
                     }
                 }
-                newGame();
                 return true;
             }
             i = i + 3;
@@ -76,7 +76,6 @@ const gameBoardModule = (() => {
                         displayWinnerName(player.getName());
                     }
                 };
-                newGame();
                 return true;
             }
             j++;
@@ -94,7 +93,6 @@ const gameBoardModule = (() => {
                             displayWinnerName(player.getName());
                         }
                     }
-                    newGame();
                     return true;
                 }
             }
@@ -107,7 +105,6 @@ const gameBoardModule = (() => {
                             displayWinnerName(player.getName());
                         }
                     }
-                    newGame();
                     return true;
                 }
             }
@@ -125,16 +122,20 @@ const gameBoardModule = (() => {
         if (findDiagonalWinPattern(squares, displayController.playerArray) === true) return;
 
         if (squaresClicked === 9) {
-            alert("gameDraw");
-            newGame();
+            displayWinnerName("Game Draw!");
         }
     }
 
     const displayWinnerName = (name) => {
-        alert(name + " won");
+        // alert(name + " won");
+        displayController.updateWinnerName(name);
         displayController.playerPointer = 0;
-        displayController.playerTurn.textContent = "Player " + displayController.playerArray
-        [displayController.playerPointer].getName() + ", Your turn!";
+        // displayController.playerTurn.textContent = "Player " + displayController.playerArray
+        // [displayController.playerPointer].getName() + ", Your turn!";
+        let squares = getSquares();
+        for (let square of squares) {
+            square.removeEventListener("click", onClick);
+        }
         squaresClicked = 0;
     }
 
@@ -142,8 +143,8 @@ const gameBoardModule = (() => {
 })();
 
 const displayController = (() => {
-    const playerOne = Player("One", "X");
-    const playerTwo = Player("Two", "O");
+    const playerOne = Player("1", "X");
+    const playerTwo = Player("2", "O");
 
     let playerPointer = 0;
     const playerArray = [playerOne, playerTwo];
@@ -152,7 +153,11 @@ const displayController = (() => {
     const playerTurn = document.querySelector(".player-turn");
 
     const updateTurnText = (playerTurn, playerArray, playerPointer) => {
-        playerTurn.textContent = "Player " + playerArray[playerPointer].getName() + ", Your turn!";
+        playerTurn.textContent = "Player " + playerArray[playerPointer].getName() + ", your turn!";
+    }
+
+    const updateWinnerName = (name) => {
+        name === "Game Draw!" ? playerTurn.textContent = name : playerTurn.textContent = name + " Won!";
     }
 
     function restartGame(e) {
@@ -160,7 +165,7 @@ const displayController = (() => {
     }
 
     return {
-        playerTurn, playerPointer, playerArray, updateTurnText
+        playerTurn, playerPointer, playerArray, updateTurnText, updateWinnerName
     }
 })();
 
