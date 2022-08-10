@@ -14,7 +14,6 @@ header {
     padding-block: clamp(0.5rem, 4vh, 2rem);
     text-align: center;
     font-size: 2.5rem;
-    /* padding-bottom: 40px; */
     background-color: rgb(201, 252, 201);
     font-family: 'Galada', cursive;
     font-weight: 500;
@@ -33,7 +32,6 @@ header {
 
 .game-board {
     background-color: #fff;
-    /* border: 0.2rem solid rosybrown; */
     width: clamp(120px, 100vw, 550px);
     height: clamp(120px, 100vw, 550px);
     display: grid;
@@ -93,12 +91,9 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid rgb(220, 182, 255); */
-    /* z-index: -1; */
 }
 
 footer>span {
-    /* border: 2px solid rgb(220, 182, 255); */
     font-family: 'Ubuntu', sans-serif;
     transition: all 2s;
     opacity: 0;
@@ -127,4 +122,12 @@ span>span {
 span>span:hover {
     color: rgb(255, 0, 43);
     cursor: pointer;
+}
+
+.win-squares {
+    background-color: rgb(184, 255, 184);
+}
+
+.win-squares:hover {
+    background-color: rgb(184, 255, 184);
 }

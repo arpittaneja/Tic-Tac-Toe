@@ -47,7 +47,6 @@ const gameBoardModule = (() => {
         findWinPattern();
     }
 
-
     const changePlayer = (playerPointer) => {
         displayController.playerPointer = (playerPointer === 0) ? 1 : 0;
     }
@@ -59,6 +58,10 @@ const gameBoardModule = (() => {
                 for (let player of playerArray) {
                     if (player.getMarker() === squares[i].dataset.marker) {
                         displayWinnerName(player.getName());
+                        squares[i].classList.add("win-squares");
+                        squares[i + 1].classList.add("win-squares");
+                        squares[i + 2].classList.add("win-squares");
+                        // console.log(squares[i].classList);
                     }
                 }
                 return true;
@@ -74,6 +77,9 @@ const gameBoardModule = (() => {
                 for (let player of playerArray) {
                     if (player.getMarker() === squares[j].dataset.marker) {
                         displayWinnerName(player.getName());
+                        squares[j].classList.add("win-squares");
+                        squares[j + 3].classList.add("win-squares");
+                        squares[j + 6].classList.add("win-squares");
                     }
                 };
                 return true;
@@ -91,6 +97,10 @@ const gameBoardModule = (() => {
                         if (player.getMarker() === squares[k].dataset.marker) {
 
                             displayWinnerName(player.getName());
+                            squares[k].classList.add("win-squares");
+                            squares[k + 4].classList.add("win-squares");
+                            squares[k + 8].classList.add("win-squares");
+
                         }
                     }
                     return true;
@@ -103,6 +113,9 @@ const gameBoardModule = (() => {
                         if (player.getMarker() === squares[k].dataset.marker) {
 
                             displayWinnerName(player.getName());
+                            squares[k].classList.add("win-squares");
+                            squares[k + 2].classList.add("win-squares");
+                            squares[k + 4].classList.add("win-squares");
                         }
                     }
                     return true;
