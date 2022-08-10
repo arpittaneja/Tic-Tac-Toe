@@ -182,7 +182,7 @@ const displayController = (() => {
     }
 
     const updateWinnerName = (name) => {
-        name === "Game Draw!" ? playerTurn.textContent = name : playerTurn.textContent = "Player" + name + " Won!";
+        name === "Game Draw!" ? playerTurn.textContent = name : playerTurn.textContent = "Player " + name + " Won!";
     }
 
     return {
