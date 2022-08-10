@@ -4,69 +4,93 @@
     box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
     height: 100%;
+    background-color: rgb(201, 252, 201);
 }
-
+/* 
 body{
-    /* border: 3px solid rgb(29, 29, 138); */
-}
-
-html{
-    /* border: 3px solid rgb(178, 178, 226); */
-}
-
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: space-between;
+} */
 header {
-    padding-block: clamp(0.5rem, 3vh, 2rem);
+    padding-block: clamp(0.5rem, 4vh, 2rem);
     text-align: center;
     font-size: 2.5rem;
+    /* padding-bottom: 40px; */
+    background-color: rgb(201, 252, 201);
+    font-family: 'Galada', cursive;
+    font-weight: 500;
+    font-size: 3rem;
 }
 
 .container {
-    border: 4px solid pink;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     gap: 20px;
+    background-color: rgb(201, 252, 201);
+    padding-inline: 20px;
 }
 
 .game-board {
-    border: 0.2rem solid rosybrown;
+    background-color: #fff;
+    /* border: 0.2rem solid rosybrown; */
     width: clamp(120px, 100vw, 550px);
     height: clamp(120px, 100vw, 550px);
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    padding: 4px;
-    gap: 4px;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 8px;
 }
 
 .square {
-    border: 1px solid rgb(170, 251, 89);
+    background-color: #efefff;
+    /* border: 1px solid rgb(170, 251, 89); */
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    border-radius: 6px;;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.btn{
+button {
     width: 180px;
     height: 40px;
     font-size: 1rem;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 4px solid white;
+    transition: all 0.2s ease;
+    background-color: rgb(201, 252, 201);
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
 }
 
-.square:hover{
-    background-color: rgb(235, 255, 247);
+button:active {
+    transform: translateY(4px);
+
 }
 
-.player-turn{
-    margin-top: 40px;
-    border: 2px solid rgb(220, 182, 255);
+.square:hover {
+    background-color: #dfdffc;
+}
+
+.player-turn {
     padding: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+
 }
 
 footer {
+    background-color: rgb(201, 252, 201);
     position: fixed;
     font-size: 1rem;
     bottom: 0px;
@@ -75,24 +99,38 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgb(220, 182, 255);
-    /* align-items: end; */
+    /* border: 2px solid rgb(220, 182, 255); */
+    /* z-index: -1; */
 }
 
-footer>span{
-    border: 2px solid rgb(220, 182, 255);
+footer>span {
+    /* border: 2px solid rgb(220, 182, 255); */
+    font-family: 'Ubuntu', sans-serif;
     transition: all 2s;
     opacity: 0;
 }
 
-footer:hover>span{
-opacity: 1;
+footer:hover>span {
+    opacity: 1;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-a:visited{
+a:visited {
     color: black;
+}
+
+a:hover {
+    color: green;
+}
+
+span>span {
+    color: rgb(255, 80, 80);
+}
+
+span>span:hover {
+    color: rgb(255, 0, 43);
+    cursor: pointer;
 }
