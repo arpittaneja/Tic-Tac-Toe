@@ -14,7 +14,6 @@ header {
     padding-block: clamp(0.5rem, 4vh, 2rem);
     text-align: center;
     font-size: 2.5rem;
-    background-color: rgb(201, 252, 201);
     font-family: 'Galada', cursive;
     font-weight: 500;
     font-size: 3rem;
@@ -25,8 +24,7 @@ header {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    background-color: rgb(201, 252, 201);
+    gap: 25px;
     padding-inline: 20px;
 }
 
@@ -50,11 +48,16 @@ header {
     border-radius: 6px;
     cursor: pointer;
     font-family: 'Arimo', sans-serif;
+    font-size: 4rem;
+}
+
+.win-squares {
+    background-color: rgb(233, 255, 233);
 }
 
 button {
     width: 180px;
-    height: 40px;
+    height: 45px;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 12px;
@@ -62,11 +65,16 @@ button {
     transition: all 0.4s ease;
     background-color: rgb(201, 252, 201);
     font-family: 'Ubuntu', sans-serif;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
 button:active {
     transform: scale(0.9);
+}
+
+button:hover{
+    background-color: rgb(178, 246, 178);
 
 }
 
@@ -82,11 +90,10 @@ button:active {
 }
 
 footer {
-    background-color: rgb(201, 252, 201);
     position: fixed;
     font-size: 1rem;
     bottom: 0px;
-    height: 50px;
+    height: 40px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -124,10 +131,6 @@ span>span:hover {
     cursor: pointer;
 }
 
-.win-squares {
-    background-color: rgb(184, 255, 184);
-}
-
 .win-squares:hover {
-    background-color: rgb(184, 255, 184);
+    background-color: rgb(233, 255, 233);
 }
