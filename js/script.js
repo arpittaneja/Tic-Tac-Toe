@@ -127,11 +127,8 @@ const gameBoardModule = (() => {
     }
 
     const displayWinnerName = (name) => {
-        // alert(name + " won");
         displayController.updateWinnerName(name);
         displayController.playerPointer = 0;
-        // displayController.playerTurn.textContent = "Player " + displayController.playerArray
-        // [displayController.playerPointer].getName() + ", Your turn!";
         let squares = getSquares();
         for (let square of squares) {
             square.removeEventListener("click", onClick);
