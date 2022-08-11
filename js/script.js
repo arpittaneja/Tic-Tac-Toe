@@ -15,6 +15,8 @@ const gameBoard = (() => {
     const getSquares = () => document.querySelectorAll(".square");
 
     const newGame = () => {
+        displayController.playerPointer = 0;
+        squaresClicked = 0;
         gameBoard.textContent = "";
         displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
 
