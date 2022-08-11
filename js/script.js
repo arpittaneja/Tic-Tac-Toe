@@ -1,4 +1,4 @@
-//player factory
+//player factory function
 const Player = (name, marker) => {
     const getName = () => name;
     const getTurn = () => turn;
