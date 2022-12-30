@@ -13,7 +13,6 @@ html {
 header {
     padding-block: clamp(0.5rem, 4vh, 2rem);
     text-align: center;
-    font-size: 2.5rem;
     font-family: 'Galada', cursive;
     font-weight: 500;
     font-size: 3rem;
@@ -43,7 +42,6 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
     border-radius: 6px;
     cursor: pointer;
     font-family: 'Arimo', sans-serif;
@@ -85,46 +83,3 @@ button:hover {
 .win-squares:hover {
     background-color: rgb(178, 255, 178);
 }
-
-/* footer {
-    position: fixed;
-    bottom: 0;
-    font-size: 1rem;
-    height: 40px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-footer>span {
-    font-family: 'Ubuntu', sans-serif;
-    transition: all 2s;
-    opacity: 1;
-    text-align: center;
-}
-
-footer:hover>span {
-    opacity: 1;
-}
-
-a {
-    text-decoration: none;
-}
-
-a:visited {
-    color: black;
-}
-
-a:hover {
-    color: green;
-}
-
-span>span {
-    color: rgb(255, 80, 80);
-}
-
-span>span:hover {
-    color: rgb(255, 0, 43);
-    cursor: pointer;
-} */

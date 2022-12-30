@@ -10,27 +10,23 @@ const Player = (name, marker) => {
 //game board module
 const gameBoard = (() => {
     const gameBoard = document.querySelector(".game-board");
-    let squaresClicked = 0;
-
-    const getSquares = () => document.querySelectorAll(".square");
+    const getSquares = () => Array.from(document.querySelectorAll(".square"));
+    let unoccupiedSquares = getSquares();
 
     const newGame = () => {
         displayController.playerPointer = 0;
-        squaresClicked = 0;
         gameBoard.textContent = "";
         displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
 
-        //loop tp create all squares
+        //loop to create all squares
         for (let i = 0; i < 9; i++) {
             const square = document.createElement("div");
             square.classList.add("square");
+            square.dataset.status = "unoccupied";
+            square.addEventListener("click", onClick);
             gameBoard.appendChild(square)
         }
-
-        let squares = getSquares();
-        for (let square of squares) {
-            square.addEventListener("click", onClick);
-        }
+        unoccupiedSquares = getSquares();
     }
 
     const onClick = (e) => {
@@ -44,23 +40,58 @@ const gameBoard = (() => {
             e.target.dataset.playerName = displayController.playerArray
             [displayController.playerPointer].getName();
 
-            changePlayer(displayController.playerPointer);
+            e.target.dataset.status = "occupied";
 
-            //updates the turn text to match the turn of next player
+            unoccupiedSquares = unoccupiedSquares.filter(item => item.dataset.status === "unoccupied");
+            if (gameEndPatternExists()) {
+                return;
+            }
+
+            changePlayer(displayController.playerPointer);
             displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
 
-            e.target.dataset.status = "occupied";
-            squaresClicked++;
+            randomPlayerTurn();
         }
-        checkWinPattern();
     }
 
     const changePlayer = (playerPointer) => {
         displayController.playerPointer = (playerPointer === 0) ? 1 : 0;
     }
 
+    const randomPlayerTurn = () => {
+
+        //selects a random square from all the unoccupied squares
+        let randomUnoccupiedSquare = unoccupiedSquares[Math.floor(Math.random() * unoccupiedSquares.length)];
+
+        randomUnoccupiedSquare.textContent =
+            displayController.playerArray
+            [displayController.playerPointer].getMarker();
+        
+        //updates the "data-marker" attribute to the marker value
+        randomUnoccupiedSquare.dataset.marker = displayController.playerArray
+        [displayController.playerPointer].getMarker();
+
+        //updates the "data-player-name" attribute to the player name value
+
+        randomUnoccupiedSquare.dataset.playerName = displayController.playerArray
+        [displayController.playerPointer].getName();
+        randomUnoccupiedSquare.dataset.status = "occupied";
+
+        // remove the randomly selectes square from the unoccupiedSquares array
+        unoccupiedSquares = unoccupiedSquares.filter(item => item.dataset.status === "unoccupied");
+
+        if (gameEndPatternExists()) {
+            return;
+        }
+
+        changePlayer(displayController.playerPointer);
+
+        //updates the turn text to match the turn of next player
+        displayController.updateTurnText(displayController.playerTurn, displayController.playerArray, displayController.playerPointer);
+    }
+
     //checks the horizontal winning conditon for a player
-    const checkHorizontalWinPattern = (squares, playerArray) => {
+    const horizontalWinningPattern = (squares, playerArray) => {
         let i = 0;
         while (i < 9) {
             if (squares[i].dataset.marker === squares[i + 1].dataset.marker && squares[i + 1].dataset.marker === squares[i + 2].dataset.marker && squares[i].dataset.marker !== undefined) {
@@ -80,7 +111,7 @@ const gameBoard = (() => {
     }
 
     //checks the vertical winning conditon for a player
-    const checkVericalWinPattern = (squares, playerArray) => {
+    const vericalWinningPatternExists = (squares, playerArray) => {
         let j = 0;
         while (j < 3) {
             if (squares[j].dataset.marker === squares[j + 3].dataset.marker && squares[j + 3].dataset.marker === squares[j + 6].dataset.marker && squares[j].dataset.marker !== undefined) {
@@ -99,7 +130,7 @@ const gameBoard = (() => {
     }
 
     //checks the diagonal winning conditon for a player
-    const checkDiagonalWinPattern = (squares, playerArray) => {
+    const diagonalWinningPatternExists = (squares, playerArray) => {
         let k = 0;
         while (k < 3) {
             if (k === 0) {
@@ -136,23 +167,25 @@ const gameBoard = (() => {
         }
     }
 
-    const checkDrawPattern = (squaresClicked) => {
-        if (squaresClicked === 9) {
-            displayWinnerName("Game Draw!");
+    const drawPatternExists = () => {
+        if (unoccupiedSquares.length === 0) {
+            return true;
         }
     }
 
-
-    const checkWinPattern = () => {
+    const gameEndPatternExists = () => {
         let squares = getSquares();
 
-        if (checkHorizontalWinPattern(squares, displayController.playerArray) === true) return;
+        if (horizontalWinningPattern(squares, displayController.playerArray)) return true;
 
-        if (checkVericalWinPattern(squares, displayController.playerArray) === true) return;
+        if (vericalWinningPatternExists(squares, displayController.playerArray)) return true;
 
-        if (checkDiagonalWinPattern(squares, displayController.playerArray) === true) return;
+        if (diagonalWinningPatternExists(squares, displayController.playerArray)) return true;
 
-        checkDrawPattern(squaresClicked);
+        if (drawPatternExists()) {
+            displayWinnerName("Game Draw!");
+            return true;
+        }
     }
 
     const displayWinnerName = (name) => {
@@ -162,7 +195,8 @@ const gameBoard = (() => {
         for (let square of squares) {
             square.removeEventListener("click", onClick);
         }
-        squaresClicked = 0;
+        // numberOfSquaresClicked = 0;
+        unoccupiedSquares = [];
     }
 
     return { newGame };
