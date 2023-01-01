@@ -34,8 +34,8 @@ const gameBoard = (() => {
         }
         // unoccupiedSquares = getSquares();
         squaresArray = getSquares();
-        unoccupiedSquaresIndexes = [1, 4, 8];
-        currentBoardState = ["X", 1, "O", "X", 4, "X", "O", "O", 8];
+        unoccupiedSquaresIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        currentBoardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     }
 
     const updateCurrentBoardStatus = (index, marker) => {
