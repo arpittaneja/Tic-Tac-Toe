@@ -51,7 +51,7 @@ const gameBoard = (() => {
             //update the unoccupiedSquaresIndexes array to reflect the new marker
             unoccupiedSquaresIndexes = getUnoccupiedSquareIndexes(currentBoardState);
             
-            winnerInfo = gameEndPatternExists(playerMarker);
+            winnerInfo = checkGameEndPatternExists(playerMarker);
             //check if the game has ended
             if (winnerInfo[0]) {
                 declareWinner(winnerInfo[1])
@@ -93,7 +93,7 @@ const gameBoard = (() => {
 
         unoccupiedSquaresIndexes = getUnoccupiedSquareIndexes(currentBoardState);
 
-        winnerInfo = gameEndPatternExists(aiMarker);
+        winnerInfo = checkGameEndPatternExists(aiMarker);
         //check if the game has ended
         if (winnerInfo[0]) {
             declareWinner(displayController.playerArray[displayController.playerPointer].getMarker())
@@ -113,10 +113,10 @@ const gameBoard = (() => {
 
         const unoccupiedSquaresIndexes = getUnoccupiedSquareIndexes(currentBoardState);
 
-        if (gameEndPatternExists("O")[0]) {
+        if (checkGameEndPatternExists("O")[0]) {
             return { score: -1 };
         }
-        else if (gameEndPatternExists("X")[0]) {
+        else if (checkGameEndPatternExists("X")[0]) {
             return { score: 1 }
         }
         else if (unoccupiedSquaresIndexes.length === 0) {
@@ -172,22 +172,22 @@ const gameBoard = (() => {
         return allPossibleMovesInfo[bestTestPlay];
     }
 
-    const gameEndPatternExists = (playerMarker) => {
+    const checkGameEndPatternExists = (playerMarker) => {
 
-        if (horizontalWinningPattern(playerMarker, squaresArray)[0]) return [true, ...horizontalWinningPattern(playerMarker, squaresArray).slice(1, 5)];
+        if (checkHorizontalWinningPatternExists(playerMarker, squaresArray)[0]) return [true, ...checkHorizontalWinningPatternExists(playerMarker, squaresArray).slice(1, 5)];
 
-        if (vericalWinningPatternExists(playerMarker, squaresArray)[0]) return [true, ...vericalWinningPatternExists(playerMarker, squaresArray).slice(1, 5)];
+        if (checkVericalWinningPatternExists(playerMarker, squaresArray)[0]) return [true, ...checkVericalWinningPatternExists(playerMarker, squaresArray).slice(1, 5)];
 
-        if (diagonalWinningPatternExists(playerMarker, squaresArray)[0]) return [true, ...diagonalWinningPatternExists(playerMarker, squaresArray).slice(1, 5)];
+        if (checkDiagonalWinningPatternExists(playerMarker, squaresArray)[0]) return [true, ...checkDiagonalWinningPatternExists(playerMarker, squaresArray).slice(1, 5)];
 
-        if (drawPatternExists()) {
+        if (checkDrawPatternExists()) {
             return [null];
         }
         return [false];
     }
 
     //checks the horizontal winning conditon for a player
-    const horizontalWinningPattern = (playerMarker, squaresArray) => {
+    const checkHorizontalWinningPatternExists = (playerMarker, squaresArray) => {
         let i = 0;
         while (i < 9) {
             if (squaresArray[i].textContent === squaresArray[i + 1].textContent && squaresArray[i + 1].textContent === squaresArray[i + 2].textContent && squaresArray[i].textContent !== "" && squaresArray[i].textContent === playerMarker) {
@@ -199,7 +199,7 @@ const gameBoard = (() => {
     }
 
     //checks the vertical winning conditon for a player
-    const vericalWinningPatternExists = (playerMarker, squaresArray) => {
+    const checkVericalWinningPatternExists = (playerMarker, squaresArray) => {
         let j = 0;
         while (j < 3) {
             if (squaresArray[j].textContent === squaresArray[j + 3].textContent && squaresArray[j + 3].textContent === squaresArray[j + 6].textContent && squaresArray[j].textContent !== "" && squaresArray[j].textContent === playerMarker) {
@@ -211,7 +211,7 @@ const gameBoard = (() => {
     }
 
     //checks the diagonal winning conditon for a player
-    const diagonalWinningPatternExists = (playerMarker, squaresArray) => {
+    const checkDiagonalWinningPatternExists = (playerMarker, squaresArray) => {
         let k = 0;
         while (k < 3) {
             if (k === 0) {
@@ -229,7 +229,7 @@ const gameBoard = (() => {
         return [false];
     }
 
-    const drawPatternExists = () => {
+    const checkDrawPatternExists = () => {
         if (unoccupiedSquaresIndexes.length === 0) {
             return true;
         }
