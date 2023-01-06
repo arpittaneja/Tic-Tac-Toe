@@ -15,7 +15,7 @@ const gameBoard = (() => {
     let unoccupiedSquaresIndexes = null;
     let winnerInfo = null;
 
-    function getUnoccupiedSquareIndexes(currentBoardState) {
+    const getUnoccupiedSquareIndexes = (currentBoardState) => {
         return currentBoardState.filter(i => i != "X" && i != "O");
     }
 
@@ -50,7 +50,7 @@ const gameBoard = (() => {
 
             //update the unoccupiedSquaresIndexes array to reflect the new marker
             unoccupiedSquaresIndexes = getUnoccupiedSquareIndexes(currentBoardState);
-            
+
             winnerInfo = checkGameEndPatternExists(playerMarker);
             //check if the game has ended
             if (winnerInfo[0]) {

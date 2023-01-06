@@ -45,7 +45,7 @@ header {
     border-radius: 6px;
     cursor: pointer;
     font-family: 'Arimo', sans-serif;
-    font-size: 4rem;
+    font-size: clamp(1rem, 22vw, 6rem);
 }
 
 button {
